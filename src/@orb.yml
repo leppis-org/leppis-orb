@@ -1,0 +1,8 @@
+version: 2.1
+
+description: >
+  ❤️
+
+orbs:
+  docker: circleci/docker@0.5.20
+  aws-s3: circleci/aws-s3@1.0.11

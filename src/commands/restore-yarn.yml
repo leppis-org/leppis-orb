@@ -1,0 +1,11 @@
+description: Restore cache
+
+parameters:
+  version:
+    description: Version for bumping the cache key
+    default: 'v1'
+    type: string
+
+steps:
+  - restore_cache:
+      key: deps-<< parameters.version >>-{{ checksum "yarn.lock" }}

@@ -1,0 +1,7 @@
+description: Lint step
+
+executor: node
+
+steps:
+  - skippable-commando:
+      cmd: yarn lint

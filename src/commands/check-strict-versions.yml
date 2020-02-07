@@ -1,0 +1,10 @@
+description: Strict versioning check of package.json
+
+steps:
+  - run:
+      name: Use strict version of dependencies
+      command: |
+        if [[ $(cat package.json | grep "\"\^") ]]; then
+          printf "Not allowed with hats in package.json dependencies"
+          exit 1
+        fi

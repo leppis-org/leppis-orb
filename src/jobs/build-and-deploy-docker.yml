@@ -1,0 +1,43 @@
+description: Builds and deploys the docker container
+
+parameters:
+  required-release-tag:
+    default: ''
+    description: If  the job will abort if no tag
+    type: string
+  image:
+    description: Name of image to push
+    type: string
+  tags:
+    default: BUILD_VERSION
+    description: Comma-separated list of image tag, defaults to the value of $BUILD_VERSION
+    type: string
+  never-override-tag:
+    default: ''
+    description: Example is to use $BUILD_VERSION
+    type: string
+
+executor: docker/docker
+steps:
+  - setup_remote_docker
+  - checkout
+  - set-env-vars
+  - when:
+      condition: << parameters.required-release-tag >>
+      steps:
+      - maybe-if-tagged:
+          tag: << parameters.required-release-tag >>
+  - when:
+      condition: << parameters.never-override-tag >>
+      steps:
+      - maybe-if-docker-version-exists:
+          image: << parameters.image >>
+          tag: << parameters.never-override-tag >>
+  - attach_workspace:
+      at: ~/workspace
+  - docker/check
+  - docker/build:
+      image: << parameters.image >>
+  - docker/push:
+      image: << parameters.image >>
+      tag: << parameters.tags >>

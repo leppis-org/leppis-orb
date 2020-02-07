@@ -1,0 +1,19 @@
+description: Install dependencies
+
+parameters:
+  use-strict:
+    description: Do strict version of dependencies or not
+    default: true
+    type: boolean
+
+executor: node
+
+steps:
+  - checkout
+  - when:
+      condition: << parameters.use-strict >>
+      steps:
+      - check-strict-versions
+  - restore-yarn
+  - run: yarn install
+  - save-yarn

@@ -1,0 +1,10 @@
+description: Test step
+
+# parameter with default yes!
+# To support various commands to run tests. Or multiple
+
+executor: node
+
+steps:
+  - skippable-commando:
+      cmd: yarn test

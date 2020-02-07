@@ -1,0 +1,16 @@
+description: Set environment variables
+
+parameters:
+  aws-region:
+    description: aws region
+    default: ''
+    type: string
+
+steps:
+  - run:
+      name: Set environment variables
+      command: |
+        echo export BUILD_VERSION=$(grep \"version\" package.json | cut -c 15- | rev | cut -c 3- | rev) >> $BASH_ENV
+        echo export AWS_REGION=<< parameters.aws-region >> >> $BASH_ENV
+        echo export DOCKER_LOGIN=$DOCKER_USER >> $BASH_ENV
+        echo export DOCKER_PASSWORD=$DOCKER_PASS >> $BASH_ENV

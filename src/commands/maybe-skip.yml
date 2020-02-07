@@ -1,0 +1,16 @@
+description: Skips step if message is in latest commit
+
+parameters:
+  message:
+    description: Message to check for
+    type: string
+
+steps:
+  - run:
+      name: maybe skip
+      command: |
+        msg=$(git rev-parse HEAD | git show -s --format=%B)
+        if [[ ${msg} == *"<< parameters.message >>"* ]]; then
+          printf "Found \"<< parameters.message >>\" in head commit message, skipping CI!\n"
+          circleci step halt
+        fi

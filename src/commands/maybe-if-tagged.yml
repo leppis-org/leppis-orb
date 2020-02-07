@@ -1,0 +1,16 @@
+description: Will abort the job if git HEAD does not include the tag
+
+parameters:
+  tag:
+    description: Tag to check for
+    type: string
+
+steps:
+  - run:
+      name: maybe run if tagged
+      command: |
+        msg=$(git rev-parse HEAD | git show -s --format=%B)
+        if [[ ${msg} != *"<< parameters.tag >>"* ]]; then
+          printf "Did not found  \"<< parameters.tag >>\" in head commit message, skipping CI!\n"
+          circleci step halt
+        fi

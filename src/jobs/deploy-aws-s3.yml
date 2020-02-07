@@ -1,0 +1,36 @@
+description: Deploy build to s3
+
+parameters:
+  from:
+    description: From directory or file
+    type: string
+  to:
+    description: S3 bucket link
+    type: string
+  region:
+    default: AWS_REGION
+    description: S3 region override
+    type: string
+  required-release-tag:
+    default: ''
+    description: If  the job will abort if no tag
+    type: string
+
+executor: python
+steps:
+  - checkout
+  - set-env-vars:
+      aws-region: << parameters.region >>
+  - when:
+      condition: << parameters.required-release-tag >>
+      steps:
+      - maybe-if-tagged:
+          tag: required-release-tag
+  - attach_workspace:
+      at: ~/workspace
+  - aws-s3/copy:
+      from: << parameters.from >>
+      to: << parameters.to >>
+      aws-access-key-id: AWS_ACCESS_KEY_ID
+      aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      aws-region: AWS_REGION

@@ -1,0 +1,28 @@
+description: Build job
+
+parameters:
+  build-path:
+    description: Path to where the build files will be
+    default: dist
+    type: string
+  compress:
+    description: If the build process should run the command `yarn compress`
+    default: false
+    type: boolean
+  build-step:
+    description: Steps to build the project
+    default: yarn build
+    type: string # todo change to steps
+
+executor: node
+steps:
+  - checkout
+  - restore-yarn
+  - run: << parameters.build-step >>
+  - when:
+      condition: << parameters.compress >>
+      steps:
+      - run: yarn compress
+  - persist_to_workspace:
+      paths: << parameters.build-path >>
+      root: .

@@ -1,0 +1,61 @@
+description: The full pipe
+
+usage:
+  version: 2.1
+
+  filter-master: &filter-master
+    branches:
+      only:
+        - master
+
+  filter-test: &filter-test
+    branches:
+      only:
+        - test
+
+  orbs:
+    leppis: circleci/leppis@dev:alpha
+
+  workflows:
+    test-build-deploy:
+      jobs:
+        - leppis/deps:
+            use-strict: true
+        - leppis/lint:
+            requires: [leppis/deps]
+        - leppis/test:
+            requires: [leppis/deps]
+        - leppis/check-types:
+            requires: [leppis/deps]
+        - leppis/build:
+            build-path: dist
+            compress: true # will do `yarn compress`
+            requires: [leppis/lint, leppis/test, leppis/check-types]
+
+        # Deploy aws steps for master and test
+        - leppis/deploy-aws-s3:
+            requires: [leppis/build]
+            filters: *filter-master
+            from: dist/*.tar.gz
+            to: s3://a-nice-prod-bucket
+            region: moon-darkside # to override env AWS_REGION
+        - leppis/deploy-aws-s3:
+            requires: [leppis/build]
+            filters: *filter-test
+            from: dist/*.tar.gz
+            to: s3://a-nice-test-bucket
+            region: moon-darkside 
+
+        # Deploy docker steps for master and test
+        - leppis/build-and-deploy-docker:
+            requires: [leppis/build]
+            filters: *filter-test
+            image: leppis/leppis-front
+            tags: test
+        - leppis/build-and-deploy-docker:
+            requires: [leppis/build]
+            filters: *filter-master
+            required-release-tag: '[ci deploy]'
+            never-override-tag: $BUILD_VERSION
+            image: leppis-leppis
+            tags: latest,${BUILD_VERSION}

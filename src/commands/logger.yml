@@ -1,0 +1,11 @@
+description: Prints the message
+
+parameters:
+  message:
+    description: Message to print
+    type: string
+
+steps:
+  - run:
+      name: Printer
+      command: echo << parameters.message >>

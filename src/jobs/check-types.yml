@@ -1,0 +1,7 @@
+description: Typescript validation
+
+executor: node
+
+steps:
+  - skippable-commando:
+      cmd: yarn check-types

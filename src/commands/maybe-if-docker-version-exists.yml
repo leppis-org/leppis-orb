@@ -1,0 +1,20 @@
+description: Check if docker version exists
+
+parameters:
+  image:
+    description: Name of image to check
+    type: string
+  tag:
+    description: Tag to check
+    type: string
+
+steps:
+  - run:
+      name: maybe-if-docker-version-exists
+      command: |
+        url=https://hub.docker.com/v2/repositories/<< parameters.image >>/tags/<< parameters.tag>>
+        res=$(curl -s -o /dev/null -w '%{http_code}\n' ${url})
+        if [[ ${res} == "200" ]]; then
+          printf "Tag already exists \"<< parameters.tag >>\""
+          exit 1
+        fi

@@ -1,0 +1,17 @@
+description: Will maybe run the commando if skip message does not match the git commit message
+
+parameters:
+  cmd: # TODO take steps instead
+    description: Command to run
+    type: string
+  skip-message:
+    description: Git commit message to skip by"
+    default: "[ci skip tests]"
+    type: string
+
+steps:
+  - checkout
+  - maybe-skip:
+      message: << parameters.skip-message >>
+  - restore-yarn
+  - run: << parameters.cmd >>
