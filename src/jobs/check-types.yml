@@ -1,7 +1,15 @@
 description: Typescript validation
 
+parameters:
+  cache-version:
+    description: Version of the cache. Usage to bump the deps cache key
+    default: "v1"
+    type: string
+
 executor: node
 
 steps:
   - skippable-commando:
-      cmd: yarn check-types
+      cache-version: << parameters.cache-version >>
+      steps:
+        - run: yarn check-types

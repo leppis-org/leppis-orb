@@ -1,0 +1,21 @@
+description: If cache is messed up somehow, use this to bump the key. Must use the same key for all jobs
+
+usage:
+  version: 2.1
+
+  orbs:
+    leppis: circleci/leppis@dev:alpha
+
+  jobs:
+    my-job:
+      executor: leppis/node
+      steps:
+        - leppis/skippable-commando:
+            skip-message: "[skip me]"
+            steps:
+              - run: echo hello
+
+  workflows:
+    skippable-flow:
+      jobs:
+        - my-job

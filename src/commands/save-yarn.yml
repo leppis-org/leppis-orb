@@ -1,12 +1,12 @@
 description: Save yarn cache
 
 parameters:
-  version:
-    description: Version for bumping the cache key
-    default: 'v1'
+  cache-version:
+    description: Version of the cache. Usage to bump the deps cache key
+    default: "v1"
     type: string
 
 steps:
   - save_cache:
       paths: [node_modules]
-      key: deps-<< parameters.version >>-{{ checksum "yarn.lock" }}
+      key: deps-<< parameters.cache-version >>-{{ checksum "yarn.lock" }}
