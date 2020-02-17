@@ -1,17 +1,22 @@
 description: Will maybe run the commando if skip message does not match the git commit message
 
 parameters:
-  cmd: # TODO take steps instead
-    description: Command to run
-    type: string
+  steps:
+    description: Commands to run
+    type: steps
   skip-message:
     description: Git commit message to skip by"
     default: "[ci skip tests]"
+    type: string
+  cache-version:
+    description: Version of the cache. Usage to bump the deps cache key
+    default: "v1"
     type: string
 
 steps:
   - checkout
   - maybe-skip:
       message: << parameters.skip-message >>
-  - restore-yarn
-  - run: << parameters.cmd >>
+  - restore-yarn:
+      cache-version: << parameters.cache-version >>
+  - steps: << parameters.steps >>

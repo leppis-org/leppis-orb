@@ -5,6 +5,10 @@ parameters:
     description: Do strict version of dependencies or not
     default: true
     type: boolean
+  cache-version:
+    description: Version of the cache. Usage to bump the deps cache key
+    default: "v1"
+    type: string
 
 executor: node
 
@@ -13,7 +17,9 @@ steps:
   - when:
       condition: << parameters.use-strict >>
       steps:
-      - check-strict-versions
-  - restore-yarn
+        - check-strict-versions
+  - restore-yarn:
+      cache-version: << parameters.cache-version >>
   - run: yarn install
-  - save-yarn
+  - save-yarn:
+      cache-version: << parameters.cache-version >>

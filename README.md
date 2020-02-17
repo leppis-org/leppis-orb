@@ -1,10 +1,13 @@
-# Ardoq Orb
+# Orby
 
-Common build orb for ardoq projects.
+Common build orb for our projects.
+About orbs in 2.0: https://circleci.com/docs/2.0/using-orbs/
+More good content: https://circleci.com/docs/2.0/reusing-config/
 
 ## Publish dev
 
 ```bash
+# Packs and publishes the alpha
 sh publish-alpha.sh
 ```
 
@@ -14,15 +17,25 @@ sh publish-alpha.sh
 git push origin master
 ```
 
+## Circleci local CLI tools
 
-## Todos
+```bash
+# Install the cli
+brew install circelci
+```
 
-Override cache key -> with params?
+```bash
+# Packs and validates the orb
+sh validate.sh
+```
 
-Consider executor as param
+```bash
+# Validate the circle config in the project
+circleci config validate
+```
 
-`maybe-skip.yml` -> use when instead together with global env var?
+## Some ideas that might be worth the time
 
-clean up `set-env-vars.yml` -> into smaller seperate?
+Consider executor as param to decide the version themself
 
-`skippable-commando.yml` to take steps instead of string
+Clean up `set-env-vars.yml` by removing or into smaller seperate ones.
