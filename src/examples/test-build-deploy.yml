@@ -44,18 +44,13 @@ usage:
             filters: *filter-test
             from: dist/*.tar.gz
             to: s3://a-nice-test-bucket
-            region: moon-darkside 
+            region: moon-darkside
 
-        # Deploy docker steps for master and test
-        - leppis/build-and-deploy-docker:
-            requires: [leppis/build]
-            filters: *filter-test
-            image: leppis/leppis-front
-            tags: test
+        # Deploy docker steps for master
         - leppis/build-and-deploy-docker:
             requires: [leppis/build]
             filters: *filter-master
-            required-release-tag: '[ci deploy]'
+            required-release-tag: "[ci deploy]"
             never-override-tag: $BUILD_VERSION
             image: leppis-leppis
             tags: latest,${BUILD_VERSION}

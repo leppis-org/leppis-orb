@@ -1,10 +1,15 @@
 description: Test step
 
-# parameter with default yes!
-# To support various commands to run tests. Or multiple
+parameters:
+  cache-version:
+    description: Version of the cache. Usage to bump the deps cache key
+    default: "v1"
+    type: string
 
 executor: node
 
 steps:
   - skippable-commando:
-      cmd: yarn test
+      cache-version: << parameters.cache-version >>
+      steps:
+        - run: yarn test

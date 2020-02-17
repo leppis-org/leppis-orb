@@ -1,0 +1,21 @@
+{
+  "name": "orby",
+  "version": "0.1.5",
+  "description": "Make life simple",
+  "company": "Ardoq AS",
+  "repository": "github:ardoq/orby",
+  "author": "AL",
+  "license": "MIT",
+  "scripts": {
+    "validate": "sh validate.sh",
+    "dev": "sh publish-dev.sh",
+    "release": "standard-version",
+    "deploy": "yarn deploy:patch",
+    "deploy:patch": "yarn release --release-as patch && git push --follow-tags origin master",
+    "deploy:minor": "yarn release --release-as minor && git push --follow-tags origin master",
+    "deploy:major": "yarn release --release-as major && git push --follow-tags origin master"
+  },
+  "devDependencies": {
+    "standard-version": "7.1.0"
+  }
+}

@@ -1,9 +1,9 @@
-description: Set environment variables
+description: Set environment variables. For internal use to migrate easier
 
 parameters:
   aws-region:
     description: aws region
-    default: ''
+    default: ""
     type: string
 
 steps:
