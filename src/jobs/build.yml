@@ -9,20 +9,27 @@ parameters:
     description: If the build process should run the command `yarn compress`
     default: false
     type: boolean
-  build-step:
+  build-steps:
     description: Steps to build the project
-    default: yarn build
-    type: string # todo change to steps
+    default:
+      - run: yarn build
+    type: steps
+  cache-version:
+    description: Version of the cache. Usage to bump the deps cache key
+    default: "v1"
+    type: string
 
 executor: node
+
 steps:
   - checkout
-  - restore-yarn
-  - run: << parameters.build-step >>
+  - restore-yarn:
+      cache-version: << parameters.cache-version >>
+  - steps: << parameters.build-steps >>
   - when:
       condition: << parameters.compress >>
       steps:
-      - run: yarn compress
+        - run: yarn compress
   - persist_to_workspace:
       paths: << parameters.build-path >>
       root: .

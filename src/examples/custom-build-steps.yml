@@ -1,0 +1,16 @@
+description: When in need of doing some fancy build steps
+
+usage:
+  version: 2.1
+
+  orbs:
+    leppis: circleci/leppis@dev:alpha
+
+  workflows:
+    build-flow:
+      jobs:
+        - leppis/build:
+            build-path: dist
+            build-steps:
+              - run: yarn build:prod
+              - run: yarn compress:deep

@@ -5,6 +5,6 @@ steps:
       name: Use strict version of dependencies
       command: |
         if [[ $(cat package.json | grep "\"\^") ]]; then
-          printf "Not allowed with hats in package.json dependencies"
+          printf "Ranges are not allowed in package.json dependency versions"
           exit 1
         fi

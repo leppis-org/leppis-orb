@@ -1,0 +1,17 @@
+description: If cache is messed up somehow, use this to bump the key. Must use the same key for all jobs
+
+usage:
+  version: 2.1
+
+  orbs:
+    leppis: circleci/leppis@dev:alpha
+
+  workflows:
+    build-flow:
+      jobs:
+        - leppis/deps:
+            use-strict: true
+            cache-version: "v2"
+        - leppis/build:
+            cache-version: "v2"
+            requires: [leppis/deps]
