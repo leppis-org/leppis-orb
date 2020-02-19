@@ -20,6 +20,7 @@ parameters:
     type: string
 
 executor: node
+
 steps:
   - checkout
   - restore-yarn:

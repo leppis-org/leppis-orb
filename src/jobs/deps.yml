@@ -3,7 +3,7 @@ description: Install dependencies
 parameters:
   use-strict:
     description: Do strict version of dependencies or not
-    default: true
+    default: false
     type: boolean
   cache-version:
     description: Version of the cache. Usage to bump the deps cache key

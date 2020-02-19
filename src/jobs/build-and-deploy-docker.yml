@@ -18,6 +18,7 @@ parameters:
     type: string
 
 executor: docker/docker
+
 steps:
   - setup_remote_docker
   - checkout
@@ -35,6 +36,7 @@ steps:
           tag: << parameters.never-override-tag >>
   - attach_workspace:
       at: ~/workspace
+  - run: cp -R ../workspace/dist dist
   - docker/check
   - docker/build:
       image: << parameters.image >>

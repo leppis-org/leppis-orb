@@ -13,10 +13,15 @@ parameters:
     type: string
   required-release-tag:
     default: ''
-    description: If  the job will abort if no tag
+    description: If the job will abort if no tag
     type: string
+  do-copy:
+    default: true
+    description: aws s3 command, copy if true else sync
+    type: boolean
 
 executor: python
+
 steps:
   - checkout
   - set-env-vars:
@@ -28,9 +33,25 @@ steps:
           tag: required-release-tag
   - attach_workspace:
       at: ~/workspace
-  - aws-s3/copy:
-      from: << parameters.from >>
-      to: << parameters.to >>
-      aws-access-key-id: AWS_ACCESS_KEY_ID
-      aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-      aws-region: AWS_REGION
+  - when:
+      condition: <<parameters.do-copy>>
+      steps:
+        - aws-s3/copy:
+            from: << parameters.from >>
+            to: << parameters.to >>
+            aws-access-key-id: AWS_ACCESS_KEY_ID
+            aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+            aws-region: AWS_REGION
+  - unless:
+      condition: <<parameters.do-copy>>
+      steps:
+        - aws-s3/sync:
+            from: << parameters.from >>
+            to: << parameters.to >>
+            aws-access-key-id: AWS_ACCESS_KEY_ID
+            aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+            aws-region: AWS_REGION
+            arguments: |
+              --acl public-read \
+              --cache-control "max-age=86400"
+            overwrite: true
