@@ -1,4 +1,4 @@
-description: Will maybe run the commando if skip message does not match the git commit message
+description: Will maybe run the command if skip message does not match the git commit message
 
 parameters:
   steps:

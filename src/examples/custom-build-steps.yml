@@ -12,5 +12,5 @@ usage:
         - leppis/build:
             build-path: dist
             build-steps:
-              - run: yarn compress:deep
               - run: yarn build:prod
+              - run: yarn compress:deep

@@ -1,0 +1,32 @@
+description: Notify sqs
+
+parameters:
+  stack:
+    description: The stack of the message body
+    type: string
+  region:
+    default: AWS_REGION
+    description: Env var of AWS region to operate in
+    type: string
+  version:
+    default: BUILD_VERSION
+    description: The version of the message body
+    type: string
+  path:
+    description: Path to the sqs
+    type: string
+
+executor: aws-cli/default
+
+steps:
+  - checkout
+  - set-env-vars:
+      aws-region: << parameters.region >>
+  - aws-cli/setup:
+      aws-region: AWS_REGION
+  - run:
+      command: |
+        aws sqs send-message \
+        --queue-url https://sqs.<< parameters.region >>.amazonaws.com/<< parameters.path >> \
+        --message-body "{\"stack\":\"<< parameters.stack >>\",\"version\":\"<< parameters.version >>\"}" \
+        --region << parameters.region >>

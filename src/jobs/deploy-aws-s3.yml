@@ -9,11 +9,11 @@ parameters:
     type: string
   region:
     default: AWS_REGION
-    description: S3 region override
+    description: AWS region to operate in
     type: string
   required-release-tag:
-    default: ''
-    description: If the job will abort if no tag
+    default: ""
+    description: If  the job will abort if no tag
     type: string
   do-copy:
     default: true
@@ -29,8 +29,8 @@ steps:
   - when:
       condition: << parameters.required-release-tag >>
       steps:
-      - maybe-if-tagged:
-          tag: required-release-tag
+        - proceed-only-if-tagged:
+            tag: required-release-tag
   - attach_workspace:
       at: ~/workspace
   - when:
