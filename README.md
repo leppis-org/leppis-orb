@@ -7,8 +7,8 @@ More good content: https://circleci.com/docs/2.0/reusing-config/
 ## Publish dev
 
 ```bash
-# Packs and publishes the alpha
-sh publish-alpha.sh
+# Packs and publishes dev version
+sh publish-dev.sh
 ```
 
 ## Publish new build version

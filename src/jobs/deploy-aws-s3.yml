@@ -19,6 +19,14 @@ parameters:
     default: true
     description: aws s3 command, copy if true else sync
     type: boolean
+  distribution-id:
+    default: ""
+    description: "Cloudfront Distribution Id for cache invalidation"
+    type: string
+  distribution-path:
+    default: "/*"
+    description: "Cloudfront Distribution path to invalidate"
+    type: string
 
 executor: python
 
@@ -52,6 +60,15 @@ steps:
             aws-secret-access-key: AWS_SECRET_ACCESS_KEY
             aws-region: AWS_REGION
             arguments: |
-              --acl public-read \
-              --cache-control "max-age=86400"
+              --acl public-read
             overwrite: true
+            # arguments: --cache-control "max-age=86400"
+  - when:
+      condition: << parameters.distribution-id >>
+      steps:
+        - run:
+            name: Invalidate cludfront cache
+            command: |
+              aws cloudfront create-invalidation \
+              --distribution-id << parameters.distribution-id >> \
+              --paths << parameters.distribution-path >>
