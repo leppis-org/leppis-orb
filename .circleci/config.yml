@@ -10,11 +10,9 @@ jobs:
       - checkout
       - run:
           command: echo export BUILD_VERSION=$(grep \"version\" package.json | cut -c 15- | rev | cut -c 3- | rev) >> $BASH_ENV
-      - orb-tools/validate:
-          orb-path: src/@orb.yml
+      - orb-tools/validate
       - orb-tools/publish:
-          orb-path: src/@orb.yml
-          orb-ref: leppis/tools:$BUILD_VERSION
+          orb-ref: leppis/tools@$BUILD_VERSION
           token-variable: CIRCLECI_DEV_API_TOKEN
 
 workflows:
