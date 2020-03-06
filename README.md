@@ -7,14 +7,19 @@ More good content: https://circleci.com/docs/2.0/reusing-config/
 ## Publish dev
 
 ```bash
-# Packs and publishes dev version
-sh publish-dev.sh
+# Packs and publishes dev version for testing
+yarn dev
+```
+
+```yml
+orb:
+  leppis: leppis/tools@dev:beta
 ```
 
 ## Publish new build version
 
 ```bash
-git push origin master
+yarn deploy patch|minor|major
 ```
 
 ## Circleci local CLI tools
@@ -33,9 +38,3 @@ sh validate.sh
 # Validate the circle config in the project
 circleci config validate
 ```
-
-## Some ideas that might be worth the time
-
-Consider executor as param to decide the version themself
-
-Clean up `set-env-vars.yml` by removing or into smaller seperate ones.

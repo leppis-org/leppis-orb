@@ -10,17 +10,11 @@ workflows:
           requires: [orb-tools/lint]
       - orb-tools/publish:
           requires: [orb-tools/pack]
+          filters:
+            branches:
+              only:
+                - master
           orb-path: src/orb.yml
-          orb-ref: circleci/leppis@dev:beta
-          publish-token-variable: $CIRCLECI_DEV_API_TOKEN
+          orb-ref: circleci/leppis:${grep \"version\" package.json | cut -c 15- | rev | cut -c 3- | rev}
+          publish-token-variable: CIRCLECI_DEV_API_TOKEN
           validate: true
-      # - orb-tools/publish:
-      #     requires: [orb-tools/pack]
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      #     orb-path: src/orb.yml
-      #     orb-ref: circleci/leppis@dev:${cat VERSION}
-      #     publish-token-variable: $CIRCLECI_DEV_API_TOKEN
-      #     validate: true

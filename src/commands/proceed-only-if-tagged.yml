@@ -9,7 +9,7 @@ steps:
   - run:
       name: maybe run if tagged
       command: |
-        msg=$((git show -s $(git rev-parse HEAD) --format=%B")
+        msg=$(git show -s $(git rev-parse HEAD) --format=%B)
         if [[ ${msg} != *"<< parameters.tag >>"* ]]; then
           printf "Did not found  \"<< parameters.tag >>\" in head commit message, skipping CI!\n"
           circleci step halt

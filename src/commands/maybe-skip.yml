@@ -9,7 +9,7 @@ steps:
   - run:
       name: maybe skip
       command: |
-        msg=$((git show -s $(git rev-parse HEAD) --format=%B")
+        msg=$(git show -s $(git rev-parse HEAD) --format=%B)
         if [[ ${msg} == *"<< parameters.message >>"* ]]; then
           printf "Found \"<< parameters.message >>\" in head commit message, skipping CI!\n"
           circleci step halt
