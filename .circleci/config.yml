@@ -14,7 +14,7 @@ workflows:
             branches:
               only:
                 - master
-          orb-path: src/orb.yml
+          orb-path: src/@orb.yml
           orb-ref: circleci/leppis:${grep \"version\" package.json | cut -c 15- | rev | cut -c 3- | rev}
           publish-token-variable: CIRCLECI_DEV_API_TOKEN
           validate: true

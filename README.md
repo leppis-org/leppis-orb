@@ -1,8 +1,25 @@
 # Orby
 
 Common build orb for our projects.
+
+See src/examples for how to use
+
 About orbs in 2.0: https://circleci.com/docs/2.0/using-orbs/
+
 More good content: https://circleci.com/docs/2.0/reusing-config/
+
+## Publish new build version
+
+```bash
+yarn deploy patch|minor|major
+```
+
+Usage
+
+```yml
+orb:
+  leppis: leppis/tools@version
+```
 
 ## Publish dev
 
@@ -11,15 +28,11 @@ More good content: https://circleci.com/docs/2.0/reusing-config/
 yarn dev
 ```
 
+Usage
+
 ```yml
 orb:
   leppis: leppis/tools@dev:beta
-```
-
-## Publish new build version
-
-```bash
-yarn deploy patch|minor|major
 ```
 
 ## Circleci local CLI tools
