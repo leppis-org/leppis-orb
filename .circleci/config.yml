@@ -20,10 +20,8 @@ workflows:
   main:
     jobs:
       - orb-tools/lint
-      - orb-tools/pack:
-          requires: [orb-tools/lint]
       - publish:
-          requires: [orb-tools/pack]
+          requires: [orb-tools/lint]
           filters:
             branches:
               only:
