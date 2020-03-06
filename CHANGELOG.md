@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.4](https://github.com/leppis-org/leppis-orb/compare/v0.4.3...v0.4.4) (2020-03-06)
+
+
+### Bug Fixes
+
+* **circle:** add dev steps for publish ([a043f86](https://github.com/leppis-org/leppis-orb/commit/a043f86e9891889a419a0298ff2a54b2a57c87d9))
+
 ### [0.4.3](https://github.com/leppis-org/leppis-orb/compare/v0.4.2...v0.4.3) (2020-03-06)
 
 
