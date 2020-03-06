@@ -6,8 +6,6 @@
   "author": "AL",
   "license": "MIT",
   "scripts": {
-    "validate": "sh validate.sh",
-    "dev": "sh publish-dev.sh",
     "release": "standard-version",
     "deploy": "yarn deploy:patch",
     "deploy:patch": "yarn release --release-as patch && git push --follow-tags origin master",

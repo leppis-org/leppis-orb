@@ -14,7 +14,7 @@ More good content: https://circleci.com/docs/2.0/reusing-config/
 yarn deploy patch|minor|major
 ```
 
-Usage
+Usage:
 
 ```yml
 orb:
@@ -23,12 +23,9 @@ orb:
 
 ## Publish dev
 
-```bash
-# Packs and publishes dev version for testing
-yarn dev
-```
+Push to any other branch than master will trigger a dev build
 
-Usage
+Usage:
 
 ```yml
 orb:
