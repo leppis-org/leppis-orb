@@ -27,6 +27,10 @@ parameters:
     default: "/*"
     description: "Cloudfront Distribution path to invalidate"
     type: string
+  notify-slack:
+    default: false
+    description: "Notify slack on job status"
+    type: boolean
 
 executor: python
 
@@ -72,3 +76,7 @@ steps:
               aws cloudfront create-invalidation \
               --distribution-id << parameters.distribution-id >> \
               --paths << parameters.distribution-path >>
+  - when:
+      control: << parameters.notify-slack >>
+      steps:
+        - slack/status

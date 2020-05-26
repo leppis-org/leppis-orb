@@ -29,7 +29,7 @@ Usage:
 
 ```yml
 orb:
-  leppis: leppis/tools@dev:beta
+  leppis: leppis/tools@dev:alpha
 ```
 
 ## Circleci local CLI tools

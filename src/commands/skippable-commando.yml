@@ -12,6 +12,10 @@ parameters:
     description: Version of the cache. Usage to bump the deps cache key
     default: "v1"
     type: string
+  notify-slack:
+    default: false
+    description: "Notify slack on job error"
+    type: boolean
 
 steps:
   - checkout
@@ -20,3 +24,8 @@ steps:
   - restore-yarn:
       cache-version: << parameters.cache-version >>
   - steps: << parameters.steps >>
+  - when:
+      control: << parameters.notify-slack >>
+      steps:
+        - slack/status:
+            fail_only: true
