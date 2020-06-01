@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/leppis-org/leppis-orb/compare/v0.4.4...v0.4.5) (2020-06-01)
+
+
+### Features
+
+* **sentry:** add sentry job for release and sourcemaps ([fb46d6f](https://github.com/leppis-org/leppis-orb/commit/fb46d6fb76db4ec3df7f17ede0a7e66001be0e0b))
+* **slack:** add notify slack job ([858cadb](https://github.com/leppis-org/leppis-orb/commit/858cadba819f79a2af7548e1b8b05a54f46e7873))
+
 ### [0.4.4](https://github.com/leppis-org/leppis-orb/compare/v0.4.3...v0.4.4) (2020-03-06)
 
 
