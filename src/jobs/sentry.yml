@@ -8,7 +8,7 @@ parameters:
   create-release:
     default: true
     type: boolean
-  upload-sourcemap:
+  upload-sourcemaps:
     default: false
     type: boolean
 
@@ -27,7 +27,7 @@ steps:
             name: Create release
             command: yarn sentry-cli releases new << parameters.project-name >>@${BUILD_VERSION}
   - when:
-      condition: << parameters.upload-sourcemap >>
+      condition: << parameters.upload-sourcemaps >>
       steps:
         - run:
             name: Upload sourcemaps
