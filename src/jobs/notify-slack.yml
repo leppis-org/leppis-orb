@@ -1,0 +1,15 @@
+description: Notifies slack
+
+parameters:
+  channel:
+    type: string
+  message:
+    default: ':tada: workflow successful!'
+    type: string
+
+executor: base
+
+steps:
+  - slack/status:
+      success_message: << parameters.message >>
+      channel: << parameters.channel >>
