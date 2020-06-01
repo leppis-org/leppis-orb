@@ -1,0 +1,37 @@
+description: |
+  Creates a release and uplouds sourcemaps to sentry.
+  Requires sentry-cli dependency and sourcemaps built within the dist folder
+
+parameters:
+  project-name:
+    type: string
+  create-release:
+    default: true
+    type: boolean
+  upload-sourcemap:
+    default: false
+    type: boolean
+
+executor: node
+
+steps:
+  - checkout
+  - restore-yarn
+  - run:
+      name: Set build version
+      command: echo export BUILD_VERSION=$(eval node -p "require\(\'./package.json\'\).version") >> $BASH_ENV
+  - when:
+      condition: << parameters.create-release >>
+      steps:
+        - run:
+            name: Create release
+            command: yarn sentry-cli releases new << parameters.project-name >>@${BUILD_VERSION}
+  - when:
+      condition: << parameters.upload-sourcemap >>
+      steps:
+        - run:
+            name: Upload sourcemaps
+            command: yarn sentry-cli releases files << parameters.project-name >>@${BUILD_VERSION} upload-sourcemaps ~/workspace/dist --rewrite
+  - run:
+      name: Finalize release
+      command: yarn sentry-cli releases finalize << parameters.project-name >>@${BUILD_VERSION}
