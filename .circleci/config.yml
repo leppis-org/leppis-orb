@@ -23,7 +23,7 @@ jobs:
       - orb-tools/pack
       - orb-tools/validate
       - orb-tools/publish:
-          orb-ref: ardoq/orby@dev:alpha
+          orb-ref: leppis/tools@dev:alpha
           token-variable: CIRCLECI_DEV_API_TOKEN
 
 workflows:
