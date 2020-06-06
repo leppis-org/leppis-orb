@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.6](https://github.com/leppis-org/leppis-orb/compare/v0.4.5...v0.4.6) (2020-06-06)
+
+
+### Bug Fixes
+
+* **images:** update to use cimg/x ([d1e085d](https://github.com/leppis-org/leppis-orb/commit/d1e085d7c85ae2b536161bcaeecf06f7654940ad))
+
 ### [0.4.5](https://github.com/leppis-org/leppis-orb/compare/v0.4.4...v0.4.5) (2020-06-01)
 
 
